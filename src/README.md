@@ -9,6 +9,7 @@
 - [Java](https://www.oracle.com/java/technologies/downloads/)
   - [JDK 11](https://www.oracle.com/br/java/technologies/javase/jdk11-archive-downloads.html)
 - IDE ([IntelliJ](https://www.jetbrains.com/pt-br/idea/#), [Eclipse](https://eclipseide.org/), etc.)
+- [Grafana Loki](https://grafana.com/oss/loki/)
 
 ## Iniciando a aplicação
 - Em caso de falha durante a geração da tabela do banco...
