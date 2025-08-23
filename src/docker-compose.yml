@@ -1,5 +1,9 @@
 version: '3.8'
-  
+
+networks:
+  database:
+  monit:
+
 services:
 
   database:
@@ -22,3 +26,17 @@ services:
     volumes:
       - ./postgres/db:/docker-entrypoint-initdb.d/
       - ./postgres/data:/var/lib/postgresql/data
+    networks:
+      - database
+
+  grafana-api-cursos:
+    image: grafana/grafana
+    user: "root:root"
+    container_name: grafana-api-cursos
+    volumes:
+      - ./grafana:/var/lib/grafana
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    networks:
+      - monit
