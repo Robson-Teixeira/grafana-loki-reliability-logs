@@ -70,3 +70,5 @@
   - 3º Em algumas versões do Grafana há um bug, então...
     - Pode ser necessário editar os paineis, clicar na query e clica em outro local da tela (e assim o resultado será exibido)
     - Recarregar a aplicação e fazer o acesso via navegador
+
+- Adicione o datasource Loki ao Grafana
