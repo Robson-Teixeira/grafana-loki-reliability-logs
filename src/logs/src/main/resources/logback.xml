@@ -17,7 +17,7 @@
             Caso esteja no Windows, utilize o comando "ipconfig" para obter seu IP
             Caso esteja no Linux ou MAC, utilize "ip addr show" ou "ifconfig"
             -->
-            <url>http://192.168.15.13:3100/loki/api/v1/push</url>
+            <url>http://loki-api-cursos:3100/loki/api/v1/push</url>
         </http>
         <format class="com.github.loki4j.logback.ProtobufEncoder">
             <label>

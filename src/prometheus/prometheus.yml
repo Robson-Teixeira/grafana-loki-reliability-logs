@@ -18,4 +18,4 @@ scrape_configs:
   - targets:
     # Utilize "ipconfig" no CMD do Windows para coletar seu IP
     # Utilize "ip addr show" ou "ifconfig" caso esteha no MAC ou Linux
-    - 192.168.15.13:8080
+    - api-cursos:8080

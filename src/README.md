@@ -65,10 +65,13 @@
         );
         ```
 - Em caso de falha durante a renderização do dashboard no Grafana...
-  - 1º Adicione o datasource Prometheus ao Grafana
+  - 1º Adicione o datasource Prometheus (URL: http://prometheus-api-cursos:9090) ao Grafana
   - 2º Atualize o datasource nas variáveis do dashboard
   - 3º Em algumas versões do Grafana há um bug, então...
     - Pode ser necessário editar os paineis, clicar na query e clica em outro local da tela (e assim o resultado será exibido)
     - Recarregar a aplicação e fazer o acesso via navegador
 
-- Adicione o datasource Loki ao Grafana
+- Adicione o datasource Loki (URL: http://loki-api-cursos:3100) ao Grafana
+
+## Comandos
+- `mvn clean package` realiza o empacotamento do projeto, criando o arquivo JAR ou WAR
