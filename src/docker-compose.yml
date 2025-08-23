@@ -59,3 +59,14 @@ services:
       - 3000:3000
     networks:
       - monit
+
+  loki-api-cursos:
+    image: grafana/loki
+    container_name: loki-api-cursos
+    command:
+      - -config.file=/etc/loki/local-config.yaml
+      - -print-config-stderr=true
+    ports:
+      - "3100:3100"
+    networks:
+      - monit
