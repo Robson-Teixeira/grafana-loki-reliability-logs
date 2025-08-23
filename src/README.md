@@ -62,3 +62,9 @@
         '2024-06-03 10:00:00'
         );
         ```
+- Em caso de falha durante a renderização do dashboard no Grafana...
+  - 1º Adicione o datasource Prometheus ao Grafana
+  - 2º Atualize o datasource nas variáveis do dashboard
+  - 3º Em algumas versões do Grafana há um bug, então...
+    - Pode ser necessário editar os paineis, clicar na query e clica em outro local da tela (e assim o resultado será exibido)
+    - Recarregar a aplicação e fazer o acesso via navegador
