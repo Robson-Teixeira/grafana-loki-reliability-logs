@@ -85,3 +85,6 @@
   - Legend: `{{message}}` define o formato da legenda no gráfico
 - `sum without(app, host, class, message, thread) (count_over_time({level="WARN"}[5m]))` consulta a soma de logs de **alerta** da aplicação api-cursos no host 7116afcf27e0 nos últimos 5 minutos, sem considerar os campos app, host, class, message e thread
   - Legend: `{{message}}` define o formato da legenda no gráfico
+- `sum without(level,app,host,class,message,thread) (count_over_time({level="INFO"}[5m])) > sum without(level,app,host,class,message,thread) (count_over_time({level="WARN"}[5m]))` consulta se a soma de logs de **informação** é maior que a soma de logs de **alerta** nos últimos 5 minutos
+  - Legend: `{{message}}` define o formato da legenda no gráfico
+- `sum by(host) (count_over_time({app="api-cursos", level="ERROR"}[5m])) / on() sum (count_over_time({app="api-cursos"}[5m]))` calcula a taxa de erro por host nos últimos 5 minutos
