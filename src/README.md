@@ -88,3 +88,5 @@
 - `sum without(level,app,host,class,message,thread) (count_over_time({level="INFO"}[5m])) > sum without(level,app,host,class,message,thread) (count_over_time({level="WARN"}[5m]))` consulta se a soma de logs de **informação** é maior que a soma de logs de **alerta** nos últimos 5 minutos
   - Legend: `{{message}}` define o formato da legenda no gráfico
 - `sum by(host) (count_over_time({app="api-cursos", level="ERROR"}[5m])) / on() sum (count_over_time({app="api-cursos"}[5m]))` calcula a taxa de erro por host nos últimos 5 minutos
+- `max by (level) (count_over_time({app="api-cursos",level="ERROR"}[5m])) > ignoring(level) avg(count_over_time({app="api-cursos",level!="ERROR"}[5m]))` compara o máximo de logs de **erro** com a média de logs **não-erro** nos últimos 5 minutos
+- `sum by (app, level) (rate({app="api-cursos"}[5m])) / on (app) group_left sum by (app) (rate({app="api-cursos"}[5m]))` calcula a proporção de logs por nível para cada aplicação nos últimos 5 minutos
