@@ -11,6 +11,7 @@
 - IDE ([IntelliJ](https://www.jetbrains.com/pt-br/idea/#), [Eclipse](https://eclipseide.org/), etc.)
 - [Grafana Loki](https://grafana.com/oss/loki/)
 - [Loki4j Logback](https://loki4j.github.io/loki-logback-appender/)
+- [Slack](https://slack.com/)
 
 ## Iniciando a aplicação
 - Em caso de falha durante a geração da tabela do banco...
@@ -136,3 +137,9 @@
       - Adicionar anotação customizada
         - Nome: Dashboard
         - Conteúdo: Link do dashboard `api-cursos` (compartilhar > encurtar link)
+
+## Slack
+- Acessar [Slack](https://slack.com/)
+- Criar app (api-cursos-alerts)
+- Criar canal (api-cursos-alerts)
+- Adicionar app `Incoming WebHooks` ao workspace do app
