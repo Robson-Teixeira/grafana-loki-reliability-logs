@@ -93,3 +93,46 @@
 - Consulta composta
   - `sum(count_over_time({app="api-cursos",class="SqlExceptionHelper",level="ERROR",method="logExceptions"}[5m]))  >= 5` conta o número de logs de erro gerados pela classe _SqlExceptionHelper_ nos últimos 5 minutos 
   - `sum(count_over_time({app="api-cursos",class="PoolBase",level="WARN",method="isConnectionAlive"}[5m]))  >= 5` conta o número de logs de alerta gerados pela classe _PoolBase_ nos últimos 5 minutos
+
+## Alertas - Grafana
+- Acessar **Grafana** > **Alerting** > **Alert rules** > **New alert rules**    
+  - 1- Geral
+    - Nome: `api-cursos-alerts`
+  - 2- Consultas
+    - Query A
+      - Datasource: `Loki`
+      - Options > Time Range: `10m to now`
+      - Consulta (consulta composta: 1)
+      - Tipo: `Faixa` 
+    - Query B (dependendo da versão do Grafana, pode ser necessário marcar a opção "_Opções avançadas_")
+      - Datasource: `Loki`
+      - Options > Time Range: `10m to now`
+      - Consulta (consulta composta: 2)
+      - Tipo: `Faixa` 
+    - Expressão
+      - Operação: `Classic condition`
+        - Condição A: 
+          - Quando: `Contagem`
+          - De: `A`
+          - Está acima de: `0`
+        - Condição B:
+          - E: `Contagem`
+          - De: `B`
+          - Está acima de: `0`
+    - 3- Pasta e rótulos
+      - Pasta 
+        - Nova pasta: `api-cursos-alerts`
+      - Rótulos
+        - Adicionar rótulos: 
+          - app: `api-cursos`
+          - level: `ERROR`
+          - severity: `critical`
+    - 4- Comportamento de avaliação
+      - Novo grupo de avaliação: `api-cursos`
+    - 5- Notificações
+      - Ponto de contato: `grafana-default-email` (editar na sequência o endereço de e-mail do ponto de contato)
+    - 6- Configuração mensagem de notificação
+      - Descrição: Falha de comunicação com o database
+      - Adicionar anotação customizada
+        - Nome: Dashboard
+        - Conteúdo: Link do dashboard `api-cursos` (compartilhar > encurtar link)
