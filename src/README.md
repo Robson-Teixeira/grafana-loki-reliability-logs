@@ -81,4 +81,7 @@
 - `{app="api-cursos", host="7116afcf27e0", level="ERROR"}` consulta os logs de **erro** da aplicação api-cursos no host 7116afcf27e0
 - `count_over_time({app="api-cursos", host="7116afcf27e0", level="ERROR"}[5m])` consulta a contagem de logs de **erro** da aplicação api-cursos no host 7116afcf27e0 nos últimos 5 minutos
   - `count_over_time({app="api-cursos", host="7116afcf27e0", level="ERROR"}[5m]) >= 3` retorna verdadeiro se houver 3 ou mais erros nos últimos 5 minutos
+  - `count_over_time({app="api-cursos", host="7116afcf27e0", level="ERROR"}[5m]) >= bool 3` retorna 1 se houver 3 ou mais erros nos últimos 5 minutos, e 0 caso contrário
+  - Legend: `{{message}}` define o formato da legenda no gráfico
+- `sum without(app, host, class, message, thread) (count_over_time({level="WARN"}[5m]))` consulta a soma de logs de **alerta** da aplicação api-cursos no host 7116afcf27e0 nos últimos 5 minutos, sem considerar os campos app, host, class, message e thread
   - Legend: `{{message}}` define o formato da legenda no gráfico
