@@ -103,6 +103,18 @@
         - Opções do painel
             - Título: `LOG EVENTS`
             - Descrição: `Log events 5m`
+- Adicionar nova linha ao dashboard
+    - Título: `API LOGGING`
+- Adicionar o painel `LOG EVENTS` à linha `API LOGGING`
+- Adicionar painel/visualização
+    - Queries
+        - Data source: `Loki`
+        - Label filters:
+            - `app` = `api-cursos`
+    - Visualização: `Logs`
+        - Opções do painel
+            - Título: `API LOG`
+            - Descrição: `Logs da API`
 
 ## Alertas - Grafana
 - Acessar **Grafana** > **Alerting** > **Alert rules** > **New alert rules**    
@@ -139,6 +151,9 @@
           - severity: `critical`
     - 4- Comportamento de avaliação
       - Novo grupo de avaliação: `api-cursos`
+      - Configurar nenhum dado e tratamento de erros
+        - Estado de alerta se não houver dados ou todos os valores forem nulos: `Normal`
+        - Estado de alerta em caso de erro de execução ou tempo limite: `Erro`
     - 5- Notificações
       - Ponto de contato: `grafana-default-email` (editar na sequência o endereço de e-mail do ponto de contato e configurar o SMTP)
     - 6- Configuração mensagem de notificação
