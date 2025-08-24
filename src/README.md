@@ -83,17 +83,26 @@
 - `count_over_time({app="api-cursos", host="7116afcf27e0", level="ERROR"}[5m])` consulta a contagem de logs de **erro** da aplicação api-cursos no host 7116afcf27e0 nos últimos 5 minutos
   - `count_over_time({app="api-cursos", host="7116afcf27e0", level="ERROR"}[5m]) >= 3` retorna verdadeiro se houver 3 ou mais erros nos últimos 5 minutos
   - `count_over_time({app="api-cursos", host="7116afcf27e0", level="ERROR"}[5m]) >= bool 3` retorna 1 se houver 3 ou mais erros nos últimos 5 minutos, e 0 caso contrário
-  - Legend: `{{message}}` define o formato da legenda no gráfico
+  - Legenda: `{{message}}` define o formato da legenda no gráfico
 - `sum without(app, host, class, message, thread) (count_over_time({level="WARN"}[5m]))` consulta a soma de logs de **alerta** da aplicação api-cursos no host 7116afcf27e0 nos últimos 5 minutos, sem considerar os campos app, host, class, message e thread
-  - Legend: `{{message}}` define o formato da legenda no gráfico
+  - Legenda: `{{message}}` define o formato da legenda no gráfico
 - `sum without(level,app,host,class,message,thread) (count_over_time({level="INFO"}[5m])) > sum without(level,app,host,class,message,thread) (count_over_time({level="WARN"}[5m]))` consulta se a soma de logs de **informação** é maior que a soma de logs de **alerta** nos últimos 5 minutos
-  - Legend: `{{message}}` define o formato da legenda no gráfico
+  - Legenda: `{{message}}` define o formato da legenda no gráfico
 - `sum by(host) (count_over_time({app="api-cursos", level="ERROR"}[5m])) / on() sum (count_over_time({app="api-cursos"}[5m]))` calcula a taxa de erro por host nos últimos 5 minutos
 - `max by (level) (count_over_time({app="api-cursos",level="ERROR"}[5m])) > ignoring(level) avg(count_over_time({app="api-cursos",level!="ERROR"}[5m]))` compara o máximo de logs de **erro** com a média de logs **não-erro** nos últimos 5 minutos
 - `sum by (app, level) (rate({app="api-cursos"}[5m])) / on (app) group_left sum by (app) (rate({app="api-cursos"}[5m]))` calcula a proporção de logs por nível para cada aplicação nos últimos 5 minutos
 - Consulta composta
-  - `sum(count_over_time({app="api-cursos",class="SqlExceptionHelper",level="ERROR",method="logExceptions"}[5m]))  >= 5` conta o número de logs de erro gerados pela classe _SqlExceptionHelper_ nos últimos 5 minutos 
+  - `sum(count_over_time({app="api-cursos",class="SqlExceptionHelper",level="ERROR",method="logExceptions"}[5m]))  >= 5` conta o número de logs de erro gerados pela classe _SqlExceptionHelper_ nos últimos 5 minutos
+    - Legenda: `ERROR` define a mensagem da legenda no gráfico
+    - 🔴
   - `sum(count_over_time({app="api-cursos",class="PoolBase",level="WARN",method="isConnectionAlive"}[5m]))  >= 5` conta o número de logs de alerta gerados pela classe _PoolBase_ nos últimos 5 minutos
+    - Legenda: `WARN` define a mensagem da legenda no gráfico
+    - 🟠
+  - Adicionar > Adicionar para dashboard > Dashboard existente > `Dashboards/api-cursos`
+    - Visualização: `Série temporal (Time series)`
+        - Opções do painel
+            - Título: `LOG EVENTS`
+            - Descrição: `Log events 5m`
 
 ## Alertas - Grafana
 - Acessar **Grafana** > **Alerting** > **Alert rules** > **New alert rules**    
@@ -131,7 +140,7 @@
     - 4- Comportamento de avaliação
       - Novo grupo de avaliação: `api-cursos`
     - 5- Notificações
-      - Ponto de contato: `grafana-default-email` (editar na sequência o endereço de e-mail do ponto de contato)
+      - Ponto de contato: `grafana-default-email` (editar na sequência o endereço de e-mail do ponto de contato e configurar o SMTP)
     - 6- Configuração mensagem de notificação
       - Descrição: Falha de comunicação com o database
       - Adicionar anotação customizada
@@ -143,3 +152,16 @@
 - Criar app (api-cursos-alerts)
 - Criar canal (api-cursos-alerts)
 - Adicionar app `Incoming WebHooks` ao workspace do app
+
+## Grafana x Slack
+- Acessar **Grafana** > **Alerting** > **Contact points**
+  - Criar ponto de contato
+    - Nome: `api-cursos-slack`
+    - Integração: `Slack`
+    - Webhook URL: <URL do webhook>
+- Acessar **Grafana** > **Alerting** > **Notification policies**
+  - Editar _Default policy_
+    - Ponto de contato padrão: `api-cursos-slack`
+- Acessar **Grafana** > **Alerting** > **Alert rules**
+  - Editar _api-cursos-alerts_
+    - Ponto de contato: `api-cursos-slack`
