@@ -75,3 +75,10 @@
 
 ## Comandos
 - `mvn clean package` realiza o empacotamento do projeto, criando o arquivo JAR ou WAR
+
+## LogQL
+- Acessar **Grafana** > **Explore** > **Loki**
+- `{app="api-cursos", host="7116afcf27e0", level="ERROR"}` consulta os logs de **erro** da aplicação api-cursos no host 7116afcf27e0
+- `count_over_time({app="api-cursos", host="7116afcf27e0", level="ERROR"}[5m])` consulta a contagem de logs de **erro** da aplicação api-cursos no host 7116afcf27e0 nos últimos 5 minutos
+  - `count_over_time({app="api-cursos", host="7116afcf27e0", level="ERROR"}[5m]) >= 3` retorna verdadeiro se houver 3 ou mais erros nos últimos 5 minutos
+  - Legend: `{{message}}` define o formato da legenda no gráfico
