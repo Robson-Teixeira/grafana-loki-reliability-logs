@@ -90,3 +90,6 @@
 - `sum by(host) (count_over_time({app="api-cursos", level="ERROR"}[5m])) / on() sum (count_over_time({app="api-cursos"}[5m]))` calcula a taxa de erro por host nos últimos 5 minutos
 - `max by (level) (count_over_time({app="api-cursos",level="ERROR"}[5m])) > ignoring(level) avg(count_over_time({app="api-cursos",level!="ERROR"}[5m]))` compara o máximo de logs de **erro** com a média de logs **não-erro** nos últimos 5 minutos
 - `sum by (app, level) (rate({app="api-cursos"}[5m])) / on (app) group_left sum by (app) (rate({app="api-cursos"}[5m]))` calcula a proporção de logs por nível para cada aplicação nos últimos 5 minutos
+- Consulta composta
+  - `sum(count_over_time({app="api-cursos",class="SqlExceptionHelper",level="ERROR",method="logExceptions"}[5m]))  >= 5` conta o número de logs de erro gerados pela classe _SqlExceptionHelper_ nos últimos 5 minutos 
+  - `sum(count_over_time({app="api-cursos",class="PoolBase",level="WARN",method="isConnectionAlive"}[5m]))  >= 5` conta o número de logs de alerta gerados pela classe _PoolBase_ nos últimos 5 minutos
